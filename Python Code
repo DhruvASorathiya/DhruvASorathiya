@@ -1,0 +1,37 @@
+import cv2
+import numpy as np
+im1=cv2.imread('negative.gif')
+
+cv2.imshow('NEGATIVE', im1)
+imB = im1[:, :, 0]
+imG = im1[:, :, 0]
+imR = im1[:, :, 0]
+rowB=[]
+rowG=[]
+rowR=[]
+for i in range(401):
+    colB=[]
+    colG=[]
+    colR=[]
+    for j in range(600):
+        (b, g, r)=im1[i,j]
+        colB.append(b)
+        colG.append(g)
+        colR.append(r)
+    rowB.append(colB)
+    rowG.append(colG)
+    rowR.append(colR)
+im2 = np.full((401, 600, 3), 0, dtype=np.uint8)
+
+for i in range(401):
+    for j in range(600):
+        b=rowB[i][j]
+        nb=255-b
+        g=rowG[i][j]
+        ng=255-g
+        r=rowR[i][j]
+        nr=255-r
+        im2[i,j]=(nb, ng, nr)
+cv2.imshow("POSITIVE", im2)
+
+cv2.waitKey(0)
